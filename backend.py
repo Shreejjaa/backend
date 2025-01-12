@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import random
 import spacy
+import os
+import logging
 
 # Load NLP model
 nlp = spacy.load("en_core_web_sm")
@@ -66,6 +68,9 @@ def detect_intent(user_message):
     else:
         return "unknown"
 
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+
 # Chatbot route
 @app.route('/chatbot', methods=['POST'])
 def chatbot():
@@ -85,9 +90,12 @@ def chatbot():
 
         return jsonify({"response": response})
     except Exception as e:
-        print(f"Error: {e}")
+        # Log the error for debugging purposes
+        logging.error(f"Error: {e}")
         return jsonify({"response": "Oops! Something went wrong. Please try again."}), 500
 
 # Run the app
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    # Use the environment variable for port if available
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
