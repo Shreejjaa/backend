@@ -1,4 +1,4 @@
-flask==2.3.2           # Web framework used for the app
-flask-cors==3.0.10     # For handling Cross-Origin Resource Sharing (CORS)
-spacy==3.6.1           # NLP library for detecting intents and processing text
-gunicorn==20.1.0       # WSGI server for deploying Flask app
+flask
+flask-cors
+spacy==3.5.3
+numpy==1.23.5
